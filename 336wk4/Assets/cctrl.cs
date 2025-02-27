@@ -68,11 +68,17 @@ public class cctrl : MonoBehaviour
         newVelocity.x = horizontalSpeed;
         rb.linearVelocity = newVelocity;
 
-        // 5. 地面检测（Raycast 从脚底检测）
+        // 5. 地面检测（Raycast 从角色中心检测）
         Collider c = GetComponent<Collider>();
-        Vector3 startPoint = transform.position + Vector3.down * c.bounds.extents.y;
-        float castDistance = 0.2f; // 适当偏移，避免浮点误差
+        Vector3 startPoint = transform.position;
+        float castDistance = c.bounds.extents.y + 0.2f; // 适当偏移，避免浮点误差
         isGrounded = Physics.Raycast(startPoint, Vector3.down, castDistance);
+
+        // 6. 处理角色在空中碰墙时卡住的问题
+        if (!isGrounded && Mathf.Abs(rb.linearVelocity.x) < 1.5f)
+        {
+            rb.AddForce(Vector3.down * 5f, ForceMode.Acceleration);
+        }
 
         // 可视化 Raycast 结果（绿色=地面，红色=空中）
         Color color = isGrounded ? Color.green : Color.red;
@@ -80,7 +86,8 @@ public class cctrl : MonoBehaviour
         UpdateAnimator();
     }
 
-    void UpdateAnimator(){
+    void UpdateAnimator()
+    {
         animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
         animator.SetBool("isJump", !isGrounded);
     }

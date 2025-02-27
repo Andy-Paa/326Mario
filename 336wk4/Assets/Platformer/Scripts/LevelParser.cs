@@ -40,7 +40,8 @@ public class LevelParser : MonoBehaviour
     public GameObject stonePrefab;
     public GameObject lavaPrefab;
     public GameObject goalPrefab;
-    
+
+    public GameManager gameManager; // Reference to the GameManager
 
     // --------------------------------------------------------------------------
     void Start()
@@ -113,6 +114,26 @@ public class LevelParser : MonoBehaviour
                     Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
                     GameObject newObj = Instantiate(prefabToInstantiate, environmentRoot);
                     newObj.transform.position = pos;
+
+                    // Set the GameManager reference for lava and goal detectors
+                    if (letters[col] == 'l' || letters[col] == 'g')
+                    {
+                        detector detectorComponent = newObj.GetComponent<detector>();
+                        if (detectorComponent != null)
+                        {
+                            detectorComponent.GameManager = gameManager;
+
+                            // Assign the lava and goal objects to the GameManager
+                            if (letters[col] == 'l')
+                            {
+                                gameManager.lava = detectorComponent;
+                            }
+                            else if (letters[col] == 'g')
+                            {
+                                gameManager.goal = detectorComponent;
+                            }
+                        }
+                    }
                 }
             }
             row++;

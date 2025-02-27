@@ -5,16 +5,27 @@ public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI score;
+    public TextMeshProUGUI msg;
 
     private int currentScore = 0;
 
     public GameObject player;
-    public GameObject lava;
-    public GameObject goal;
+    public detector lava;
+    public detector goal;
+    public detector voidDetector;
+    public detector brickDebug;
+
+    [Header("Coins")]
+
+    public detector coin1;
+    public detector coin2;
+    public detector coin3;
+    public detector coin4;
+    public detector coin5;
 
     void Update()
     {
-        int timeLeft = 20 - (int)(Time.time);
+        int timeLeft = 100 - (int)(Time.time);
         timerText.text = $"Time: {timeLeft}";
 
         // Check for mouse click
@@ -48,27 +59,63 @@ public class GameManager : MonoBehaviour
         // Check if time has run out
         if (timeLeft <= 0)
         {
-            timerText.text = "Game Over";
+            msg.text = "Game Over";
             Debug.Log("Game Over");
-            // Implement game over logic here
+            Time.timeScale = 0;
         }
+
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnDetect(detector detector)
     {
-        // Check if the player enters the lava trigger
-        if (other.gameObject == lava && other.gameObject == player)
+        if (detector == lava)
         {
-            timerText.text = "Game Over";
-            Debug.Log("Game Over");
-            // Implement game over logic here
+            msg.text = "Game Over!";
+            Debug.Log("Lose");
+            Time.timeScale = 0;
         }
-        // Check if the player enters the goal trigger
-        else if (other.gameObject == goal && other.gameObject == player)
+        else if (detector == goal)
         {
-            timerText.text = "Finished";
-            Debug.Log("Finished");
-            // Implement game win logic here
+            player.SetActive(false);
+            msg.text = "You Win!";
+            Debug.Log("Win");
+            Time.timeScale = 0;
+        }else if (detector == coin1)
+        {
+            currentScore += 100;
+            score.text = $"Score: {currentScore}";
+            coin1.gameObject.SetActive(false);
+        }else if (detector == coin2)
+        {
+            currentScore += 100;
+            score.text = $"Score: {currentScore}";
+            coin2.gameObject.SetActive(false);
+        }else if (detector == coin3)
+        {
+            currentScore += 100;
+            score.text = $"Score: {currentScore}";
+            coin3.gameObject.SetActive(false);
+        }else if (detector == coin4)    
+        {
+            currentScore += 100;
+            score.text = $"Score: {currentScore}";
+            coin4.gameObject.SetActive(false);
+        }else if (detector == coin5)
+        {
+            currentScore += 100;
+            score.text = $"Score: {currentScore}";
+            coin5.gameObject.SetActive(false);
+        }else if (detector == brickDebug)
+        {
+            currentScore += 100;
+            Debug.Log("Brick Destroyed");
+            score.text = $"Score: {currentScore}";
+            brickDebug.gameObject.SetActive(false);
+        }else if (detector == voidDetector)
+        {
+            msg.text = "Game Over!";
+            Debug.Log("Lose");
+            Time.timeScale = 0;
         }
     }
 }
