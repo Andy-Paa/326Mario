@@ -8,12 +8,17 @@ public class cctrl : MonoBehaviour
     public float jumpBoostForce = 3f; // 二段跳力度
     public int maxAirJumps = 1;       // 允许的空中跳跃次数
 
+    static readonly int Speed = Animator.StringToHash("Speed");
+
+    Animator animator;
+
     private Rigidbody rb;
     public bool isGrounded;
     private int airJumps = 0;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -66,11 +71,17 @@ public class cctrl : MonoBehaviour
         // 5. 地面检测（Raycast 从脚底检测）
         Collider c = GetComponent<Collider>();
         Vector3 startPoint = transform.position + Vector3.down * c.bounds.extents.y;
-        float castDistance = 0.05f; // 适当偏移，避免浮点误差
+        float castDistance = 0.2f; // 适当偏移，避免浮点误差
         isGrounded = Physics.Raycast(startPoint, Vector3.down, castDistance);
 
         // 可视化 Raycast 结果（绿色=地面，红色=空中）
         Color color = isGrounded ? Color.green : Color.red;
         Debug.DrawLine(startPoint, startPoint + castDistance * Vector3.down, color, 0f, false);
+        UpdateAnimator();
+    }
+
+    void UpdateAnimator(){
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+        animator.SetBool("isJump", !isGrounded);
     }
 }
