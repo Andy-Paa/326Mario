@@ -41,7 +41,7 @@ public class LevelParser : MonoBehaviour
     public GameObject lavaPrefab;
     public GameObject goalPrefab;
 
-    public GameManager gameManager; // Reference to the GameManager
+    public GameManager gameManager;
 
     // --------------------------------------------------------------------------
     void Start()
@@ -115,7 +115,6 @@ public class LevelParser : MonoBehaviour
                     GameObject newObj = Instantiate(prefabToInstantiate, environmentRoot);
                     newObj.transform.position = pos;
 
-                    // Set the GameManager reference for lava and goal detectors
                     if (letters[col] == 'l' || letters[col] == 'g')
                     {
                         detector detectorComponent = newObj.GetComponent<detector>();
@@ -123,7 +122,6 @@ public class LevelParser : MonoBehaviour
                         {
                             detectorComponent.GameManager = gameManager;
 
-                            // Assign the lava and goal objects to the GameManager
                             if (letters[col] == 'l')
                             {
                                 gameManager.lava = detectorComponent;

@@ -25,37 +25,38 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        int timeLeft = 100 - (int)(Time.time);
+        int timeLeft = 10 - (int)(Time.time);
         timerText.text = $"Time: {timeLeft}";
 
-        // Check for mouse click
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Perform a raycast from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                // Check if the hit object is a brick
-                if (hit.collider.CompareTag("Brick"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-                // Check if the hit object is a coin
-                else if (hit.collider.CompareTag("Coin"))
-                {
-                    currentScore += 10; // Add points for collecting a coin
-                    Destroy(hit.collider.gameObject);
-                }
-                // Check if the hit object is a question box
-                else if (hit.collider.CompareTag("QuestionBox"))
-                {
-                    currentScore += 50; // Add bonus points for hitting a question box
-                }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     // Perform a raycast from the camera to the mouse position
+        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //     if (Physics.Raycast(ray, out RaycastHit hit))
+        //     {
+        //         // Check if the hit object is a brick
+        //         if (hit.collider.CompareTag("Brick"))
+        //         {
+        //             Destroy(hit.collider.gameObject);
+        //         }
+        //         // Check if the hit object is a coin
+        //         else if (hit.collider.CompareTag("Coin"))
+        //         {
+        //             currentScore += 10; // Add points for collecting a coin
+        //             Destroy(hit.collider.gameObject);
+        //         }
+        //         // Check if the hit object is a question box
+        //         else if (hit.collider.CompareTag("QuestionBox"))
+        //         {
+        //             currentScore += 50; // Add bonus points for hitting a question box
+        //         }
 
-                // Update the score display
-                score.text = $"Score: {currentScore}";
-            }
-        }
+        //         // Update the score display
+        //         score.text = $"Score: {currentScore}";
+        //     }
+        // }
+
+
         // Check if time has run out
         if (timeLeft <= 0)
         {
