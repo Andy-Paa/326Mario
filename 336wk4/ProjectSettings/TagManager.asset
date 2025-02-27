@@ -7,6 +7,8 @@ TagManager:
   - QuestionBox
   - Brick
   - Coin
+  - Lava
+  - Goal
   layers:
   - Default
   - TransparentFX

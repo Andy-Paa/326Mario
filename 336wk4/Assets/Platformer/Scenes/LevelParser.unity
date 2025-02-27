@@ -279,6 +279,8 @@ MonoBehaviour:
   brickPrefab: {fileID: 2652198492393551387, guid: d94221691cf23ce429136e2be05d002b, type: 3}
   questionBoxPrefab: {fileID: 2652198492393551387, guid: 97d0fe6850ab3714eaa654f26f4ca9f8, type: 3}
   stonePrefab: {fileID: 2652198492393551387, guid: e2bf2963d586ea44ea04e84c9ae1fa8e, type: 3}
+  lavaPrefab: {fileID: 7255808642067664341, guid: 6ee3c4a27a10c96408b0bf587af203a9, type: 3}
+  goalPrefab: {fileID: 7255808642067664341, guid: d4a2a33f3c644e048bb57fccbc8b54a2, type: 3}
 --- !u!1 &446336194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,8 +1004,8 @@ PositionConstraint:
   m_TranslationAtRest: {x: 18.54, y: 11, z: -10}
   m_TranslationOffset: {x: 13.540001, y: 7.94, z: -10}
   m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
+  m_AffectTranslationY: 0
+  m_AffectTranslationZ: 0
   m_Active: 1
   m_IsLocked: 0
   m_Sources:
@@ -1817,6 +1819,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1615889886}
   score: {fileID: 1086009734}
+  player: {fileID: 919132149603497353}
+  lava: {fileID: 7255808642067664341, guid: 6ee3c4a27a10c96408b0bf587af203a9, type: 3}
+  goal: {fileID: 7255808642067664341, guid: d4a2a33f3c644e048bb57fccbc8b54a2, type: 3}
 --- !u!4 &1818905404
 Transform:
   m_ObjectHideFlags: 0
@@ -2835,7 +2840,7 @@ GameObject:
   - component: {fileID: 5866666021461194058}
   m_Layer: 0
   m_Name: Mario (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6750,7 +6755,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 88
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &5866666021461194060
 CapsuleCollider:
   m_ObjectHideFlags: 0
